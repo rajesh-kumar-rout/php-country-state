@@ -1,6 +1,7 @@
 <?php
 
 require("db.php");
+
 $stmt = $pdo->prepare("select * from countries");
 $stmt->execute();
 $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -19,9 +20,9 @@ $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <table class="table table-bordered" style="min-width: 700px">
                     <thead>
                         <tr>
-                            <td scope="col">Id</td>
-                            <td scope="col">Name</td>
-                            <td scope="col">Action</td>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,7 @@ $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a href="/edit-country.php?id=<?= $country["id"] ?>" class="btn btn-sm btn-warning">Edit</a>
+                                        
                                         <form action="/delete-country.php?id=<?= $country["id"] ?>" method="post">
                                             <input type="hidden" name="id" value="<?= $country["id"] ?>">
                                             <button class="btn btn-danger btn-sm">Delete</button>

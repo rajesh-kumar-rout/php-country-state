@@ -1,6 +1,7 @@
 <?php
 
 require("db.php");
+
 $stmt = $pdo->prepare("delete from countries where id = :id");
 $stmt->bindParam("id", $_POST["id"]);
 $stmt->execute();

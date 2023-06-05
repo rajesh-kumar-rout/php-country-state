@@ -7,8 +7,7 @@ if(isset($_POST["name"])) {
     $stmt = $pdo->prepare("select * from countries where name = :name limit 1");
     $stmt->bindParam("name", $_POST["name"]);
     $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($user) {
+    if($stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<script>alert('Country already exists')</script>";
     } else {
         $stmt = $pdo->prepare("insert into countries (name) values (:name)");
@@ -21,8 +20,9 @@ if(isset($_POST["name"])) {
 ?>
 
 <?php require("header.php") ?>
-    <form class="card mx-auto" action="/create-country.php" method="post" style="max-width: 600px;">
+    <form class="card mx-auto" action="/create-country.php" method="post" style="max-width: 600px">
         <div class="card-header fw-bold text-primary">Add New Country</div>
+
         <div class="card-body">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>

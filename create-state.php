@@ -3,13 +3,11 @@
 require("db.php");
 
 if(isset($_POST["name"])) {
-    require("db.php");
     $stmt = $pdo->prepare("select * from states where name = :name and country_id = :country_id limit 1");
     $stmt->bindParam("name", $_POST["name"]);
     $stmt->bindParam("country_id", $_POST["country_id"]);
     $stmt->execute();
-    $state = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($state) {
+    if($stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<script>alert('State already exists')</script>";
     } else {
         $stmt = $pdo->prepare("insert into states (name, country_id) values (:name, :country_id)");
@@ -27,8 +25,9 @@ $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php require("header.php") ?>
-    <form class="card mx-auto" method="post" style="max-width: 600px;">
+    <form class="card mx-auto" method="post" style="max-width: 600px">
         <div class="card-header fw-bold text-primary">Add New State</div>
+
         <div class="card-body">
             <div class="mb-3">
                 <label for="country_id" class="form-label">Country</label>

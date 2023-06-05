@@ -1,7 +1,8 @@
 <?php
 
 require("db.php");
-$stmt = $pdo->prepare("select states.id, states.name, (select countries.name from countries where countries.id = states.country_id) as country from states order by name asc");
+
+$stmt = $pdo->prepare("select states.id, states.name, countries.name as country from states inner join countries on countries.id = states.country_id order by countries.name asc");
 $stmt->execute();
 $states = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -19,10 +20,10 @@ $states = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <table class="table table-bordered" style="min-width: 700px">
                     <thead>
                         <tr>
-                            <td scope="col">Id</td>
-                            <td scope="col">Name</td>
-                            <td scope="col">Country</td>
-                            <td scope="col">Action</td>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +35,7 @@ $states = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a href="/edit-state.php?id=<?= $state["id"] ?>" class="btn btn-sm btn-warning">Edit</a>
+                                        
                                         <form action="/delete-state.php?id=<?= $state["id"] ?>" method="post">
                                             <input type="hidden" name="id" value="<?= $state["id"] ?>">
                                             <button class="btn btn-danger btn-sm">Delete</button>
