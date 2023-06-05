@@ -11,7 +11,7 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-for($i=0; $i<count($countries);$i++) {
+for($i=0; $i<count($countries); $i++) {
     $stmt = $pdo->prepare("
         SELECT 
             states.id,
@@ -39,7 +39,10 @@ for($i=0; $i<count($countries);$i++) {
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Cities";
+    require("header.php") 
+?>
     <div class="card">
         <div class="card-header fw-bold text-primary">Cities</div>
 
@@ -70,6 +73,11 @@ for($i=0; $i<count($countries);$i++) {
                                                 <tr>
                                                     <td><?= $state["name"] ?></td>
                                                     <td>
+                                                       
+                                                        <?php if(count($state["cities"]) == 0): ?>
+                                                            <div>No City Added</div>
+                                                        <?php endif; ?>
+
                                                         <?php foreach($state["cities"] as $city): ?>
                                                             <p><?= $city["name"] ?></p>
                                                         <?php endforeach; ?>

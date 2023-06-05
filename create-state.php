@@ -14,7 +14,7 @@ if(isset($_POST["name"])) {
         $stmt->bindParam("name", $_POST["name"]);
         $stmt->bindParam("country_id", $_POST["country_id"]);
         $stmt->execute();
-        echo "<script>alert('State added successfully')</script>";
+        echo "<script>alert('State added successfully');window.location.href='/states.php'</script>";
     }
 }
 
@@ -24,7 +24,10 @@ $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Create State";
+    require("header.php") 
+?>
     <form class="card mx-auto" method="post" style="max-width: 600px">
         <div class="card-header fw-bold text-primary">Add New State</div>
 

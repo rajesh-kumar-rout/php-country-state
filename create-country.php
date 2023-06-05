@@ -13,13 +13,16 @@ if(isset($_POST["name"])) {
         $stmt = $pdo->prepare("insert into countries (name) values (:name)");
         $stmt->bindParam("name", $_POST["name"]);
         $stmt->execute();
-        echo "<script>alert('Country added successfully')</script>";
+        echo "<script>alert('Country added successfully'); window.location.href='/countries.php'</script>";
     }
 }
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Create Country";
+    require("header.php") 
+?>
     <form class="card mx-auto" action="/create-country.php" method="post" style="max-width: 600px">
         <div class="card-header fw-bold text-primary">Add New Country</div>
 

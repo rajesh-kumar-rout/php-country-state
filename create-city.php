@@ -25,7 +25,10 @@ if(isset($_POST["state_id"])) {
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Create City";
+    require("header.php") 
+?>
     <form class="card mx-auto" method="post" style="max-width: 600px;">
         <div class="card-header fw-bold text-primary">Add New City</div>
         <div class="card-body">

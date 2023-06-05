@@ -17,7 +17,7 @@ if(isset($_POST["country_id"])) {
         $stmt->bindParam("country_id", $_POST["country_id"]);
         $stmt->bindParam("id", $_POST["id"]);
         $stmt->execute();
-        echo "<script>alert('State updated successfully')</script>";
+        echo "<script>alert('State updated successfully'); window.location.href='/states.php'</script>";
     }
 }
 
@@ -32,7 +32,10 @@ $state = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Edit State";
+    require("header.php") 
+?>
     <form class="card mx-auto" action="" method="post" style="max-width: 600px;">
         <div class="card-header fw-bold text-primary">Edit State</div>
         <div class="card-body">

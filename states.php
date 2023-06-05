@@ -8,7 +8,10 @@ $states = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "States";
+    require("header.php") 
+?>
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
             <div class="fw-bold text-primary">States</div>

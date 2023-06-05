@@ -8,7 +8,10 @@ $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Countries";
+    require("header.php") 
+?>
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
             <div class="fw-bold text-primary">Countries</div>

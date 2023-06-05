@@ -33,13 +33,16 @@ if(isset($_POST["state_id"])) {
         $stmt->bindParam("state_id", $_POST["state_id"]);
         $stmt->execute();
     }
-    header('Location: /cities.php');
-    die();
+    
+    echo "<script>alert('Cities edited successfully'); window.location.href='/cities.php'</script>";
 }
 
 ?>
 
-<?php require("header.php") ?>
+<?php 
+    $page_title = "Edit City";
+    require("header.php") 
+?>
     <form class="card mx-auto" method="post" style="max-width: 600px;">
         <div class="card-header fw-bold text-primary">Manage Cities</div>
 
@@ -70,7 +73,7 @@ if(isset($_POST["state_id"])) {
                     <?php if(count($cities) == 0): ?>
                         <div class="name-item d-flex gap-2 mt-3">
                             <input type="text" class="form-control" name="names[]">
-                            <button type="button" id="btnAddCity" class="btn btn-sm btn-success">Add</button>
+                            <button type="button" onclick="addNameItem(event)" class="btn btn-sm btn-success">Add</button>
                         </div>
                     <?php endif; ?>
 
@@ -78,7 +81,7 @@ if(isset($_POST["state_id"])) {
                         <div class="name-item d-flex gap-2 mt-3">
                             <input type="text" class="form-control" value="<?= $cities[$i]["name"] ?>" name="names[]">
                             <?php if($i == 0): ?>
-                                <button type="button" id="btnAddCity" class="btn btn-sm btn-success">Add</button>
+                                <button type="button" onclick="addNameItem(event)" class="btn btn-sm btn-success">Add</button>
                             <?php else: ?>
                                 <button type="button" onclick="removeNameItem(event)" class="btn btn-sm btn-danger">Remove</button>
                             <?php endif; ?>
@@ -106,7 +109,7 @@ if(isset($_POST["state_id"])) {
             const response = await fetch(`/ajax.php?action=get_cities_by_state&&state_id=${event.target.value}`)
             const cities = await response.json()
             
-            document.querySelector(".name-items").innerHTML = ''
+            document.querySelector(".name-items").innerHTML = ""
 
             cities.forEach((city, index) => {
                 let nameItem = document.createElement("div")
@@ -116,14 +119,14 @@ if(isset($_POST["state_id"])) {
                 nameItem.classList.add("mt-3")
                 nameItem.innerHTML = `
                     <input type="text" class="form-control" value="${city.name}" name="names[]">
-                    ${index == 0 ? `<button type="button" id="btnAddCity" class="btn btn-sm btn-success">Add</button>` :
+                    ${index == 0 ? `<button type="button" onclick="addNameItem(event)" class="btn btn-sm btn-success">Add</button>` :
                     `<button type="button" onclick="removeNameItem(event)" class="btn btn-sm btn-danger">Remove</button>`}
                 `
                 document.querySelector(".name-items").appendChild(nameItem)
             })
         }
 
-        document.querySelector("#btnAddCity").onclick = event => {
+        function addNameItem(event) {
             const nameItem = document.createElement("div")
             nameItem.classList.add("name-item")
             nameItem.classList.add("d-flex")
@@ -135,7 +138,7 @@ if(isset($_POST["state_id"])) {
             `
             event.target.closest(".name-items").appendChild(nameItem)
         }
-        
+
         function removeNameItem(event) {
             event.target.closest(".name-item").remove()
         }
