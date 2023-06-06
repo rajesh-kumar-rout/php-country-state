@@ -2,6 +2,7 @@
 <?php
 
 require("db.php");
+
 $stmt = $pdo->prepare("select * from countries");
 $stmt->execute();
 $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);

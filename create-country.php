@@ -7,6 +7,7 @@ if(isset($_POST["name"])) {
     $stmt = $pdo->prepare("select * from countries where name = :name limit 1");
     $stmt->bindParam("name", $_POST["name"]);
     $stmt->execute();
+    
     if($stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<script>alert('Country already exists')</script>";
     } else {

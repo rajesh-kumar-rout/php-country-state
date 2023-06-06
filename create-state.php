@@ -7,6 +7,7 @@ if(isset($_POST["name"])) {
     $stmt->bindParam("name", $_POST["name"]);
     $stmt->bindParam("country_id", $_POST["country_id"]);
     $stmt->execute();
+    
     if($stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<script>alert('State already exists')</script>";
     } else {
